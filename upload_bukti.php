@@ -145,7 +145,7 @@ $nama = $_GET['nama'] ?? '';
 
         ?>
 
-        <a href="<?= $back_link ?>" class="btn btn-dark mt-2">Kembali</a>
+        <a href="<?= $back_link ?>" class="btn btn-dark mt-2">Batal Pembelian</a>
 
     </form>
 </div>
