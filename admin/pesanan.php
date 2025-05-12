@@ -1,6 +1,6 @@
 <?php
 require "session.php";
-require "../koneksi.php";
+require "koneksi.php";
 
 // sekarang p.ukuran langsung ada di tabel pemesanan
 $querypemesanan = mysqli_query($koneksi, "
