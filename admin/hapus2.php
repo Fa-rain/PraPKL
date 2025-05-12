@@ -1,6 +1,6 @@
 <?php
 require "session.php";
-require "../koneksi.php";
+require "koneksi.php";
 
 $id_produk = $_GET['id'];
 $sql = "DELETE FROM produk WHERE id_produk = '$id_produk' ";
