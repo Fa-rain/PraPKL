@@ -174,7 +174,7 @@
                 <div class="cart-item d-flex align-items-center justify-content-between">
 
                     <input type="checkbox" name="pilih_keranjang[]" value="<?= $produk['id_keranjang'] ?>" 
-                    class="form-check-input me-2 checkbox-produk" style="transform: scale(1.3);"
+                    class="form-check-input me-2 checkbox-produk" style="transform: scale(1.3); border: 2px solid #949496;"
 
                     data-harga="<?= $produk['harga'] ?>" data-jumlah="<?= $produk['jumlah_produk'] ?>">
 
