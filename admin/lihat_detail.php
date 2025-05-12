@@ -1,5 +1,5 @@
 <?php
-require "../koneksi.php";
+require "koneksi.php";
 session_start();
 
 $id_pesanan = $_GET['id'];
