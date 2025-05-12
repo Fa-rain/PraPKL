@@ -1,6 +1,6 @@
 <?php
     require "session.php";
-    require "../koneksi.php";
+    require "koneksi.php";
 
     $queryproduk = mysqli_query($koneksi, "SELECT a.*, b.nama AS nama_kategori FROM produk a JOIN kategori b ON a.id_kategori=b.id_kategori");
     $jumlahproduk = mysqli_num_rows($queryproduk);
