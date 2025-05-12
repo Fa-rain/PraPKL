@@ -1,6 +1,6 @@
 <?php
     require "session.php";
-    require "../koneksi.php";
+    require "koneksi.php";
 
     $id_kategori = $_GET['id'];
     $sql = "SELECT * FROM kategori WHERE id_kategori = '$id_kategori' ";
