@@ -41,7 +41,7 @@ $query = mysqli_query($koneksi, "
             background-color: #ddd;
         }
         .pesanan-card {
-            background-color: #ccc;
+            background-color: #dbdfe8;
             padding: 20px;
             margin-bottom: 15px;
             border-radius: 10px;
@@ -88,8 +88,11 @@ $query = mysqli_query($koneksi, "
             <?php while ($row = mysqli_fetch_assoc($query)) { ?>
                 <div class="pesanan-card d-flex justify-content-between align-items-center">
                     <div class="d-flex align-items-center">
-                        <img src="../image/<?= $row['foto'] ?>" alt="Produk" class="product-img me-3">
-                        <span class="fs-5"><?= $row['nama'] ?></span>
+                        <img src="../image/<?= $row['foto'] ?>" alt="Produk" class="product-img me-3" style="width: 150px; height: auto; border-radius: 5px;">
+                        <div>
+                            <p class="mb-1 fw-semibold fs-4">Nama Sepatu: <span class="fs-5"><?= $row['nama'] ?></span></p>
+                            <p class="mb-0 fw-semibold fs-5">Ukuran: <span class="fs-5"><?= $row['ukuran'] ?></span></p>
+                        </div>
                     </div><br><br><br><br>
                     <div class="status-text text-end">
                         <?= $row['status'] == 1 ? '<span class="text-success">Dikirim</span>' : '<span class="text-danger">Belum Dikirim</span>' ?>
