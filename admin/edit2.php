@@ -1,6 +1,6 @@
 <?php
     require "session.php";
-    require "../koneksi.php";
+    require "koneksi.php";
 
     $id_produk = $_GET['id'];
     $sql = "SELECT a.*, b.nama AS nama_kategori FROM produk a JOIN kategori b ON a.id_kategori=b.id_kategori WHERE a.id_produk = '$id_produk' ";
