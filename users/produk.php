@@ -12,7 +12,12 @@
         else if (isset($_GET['kategori'])) {
             $querygetkategoriid = mysqli_query($koneksi, "SELECT id_kategori FROM kategori WHERE nama='$_GET[kategori]'");
             $kategoriid = mysqli_fetch_array($querygetkategoriid);
-            $queryproduk = mysqli_query($koneksi, "SELECT * FROM produk WHERE id_kategori='$kategoriid[id_kategori]' ORDER BY RAND()");
+
+            if ($kategoriid) {
+                $queryproduk = mysqli_query($koneksi, "SELECT * FROM produk WHERE id_kategori='{$kategoriid['id_kategori']}' ORDER BY RAND()");
+            } else {
+                $queryproduk = mysqli_query($koneksi, "SELECT * FROM produk WHERE 1=0");
+            }
         } 
         
     // get produk by default
@@ -57,7 +62,7 @@
 
             <div class="col-lg-3 mb-5">
                 <h3>Kategori</h3>
-                <ul class="list-group mt-3">
+                <ul class="list-group mt-5">
                     <a class="no-decoration" href="produk_so.php?kategori=Sepatu+Olahraga"> <!-- aku -->
                         <li class="list-group-item">Sepatu Olahraga</li>
                     </a>
