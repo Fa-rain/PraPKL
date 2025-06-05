@@ -3,8 +3,7 @@ require "session.php";
 require "koneksi.php";
 
 // sekarang p.ukuran langsung ada di tabel pemesanan
-$querypemesanan = mysqli_query($koneksi, "
-  SELECT
+$querypemesanan = mysqli_query($koneksi, "SELECT
     p.id_pemesanan,
     pr.nama       AS nama_produk,
     pr.foto,
@@ -70,7 +69,7 @@ $jumlahpemesanan = mysqli_num_rows($querypemesanan);
         <?php $no=1; while($row = mysqli_fetch_assoc($querypemesanan)): ?>
         <tr>
           <td><?= $no ?></td>
-          <td><?= htmlspecialchars($row['nama_produk']) ?></td>
+          <td><?= ($row['nama_produk']) ?></td>
           <td><img src="../image/<?= htmlspecialchars($row['foto']) ?>" alt=""></td>
           <td><?= date('d M Y', strtotime($row['tanggal_pemesanan'])) ?></td>
           <td><?= htmlspecialchars($row['ukuran_dipesan']) ?></td>
