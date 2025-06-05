@@ -1,6 +1,6 @@
 <?php
-require "koneksi.php";
 session_start();
+require "koneksi.php";
 
 $id_pesanan = $_GET['id'];
 
@@ -135,25 +135,22 @@ if (isset($_POST['kirim'])) {
           <div class="row">
             <!-- Kolom kiri: gambar -->
             <div class="col-md-6">
-              <div class="mb-3">
-                <label class="form-label">Foto Produk</label><br>
+              <div class="mb-5">
+                <label class="form-label">Foto Produk :p</label><br>
                 <img src="../image/<?= $data['foto'] ?>" class="img-fluid rounded" >
               </div>
 
               <div class="mb-3">
                 <label class="form-label">Catatan Pembelian</label>
-                <div><?= $data['catatan'] ?></div>
+                <?= $data['catatan'] ?>
               </div>
 
-
-            
               <div class="mb-3">
                 <label class="form-label">Status Pembayaran</label>
                 <b class="<?= $status_bayar == 'Sudah Dibayar' ? 'text-success' : 'text-danger' ?>">
                   <?= $status_bayar ?>
                 </b>
               </div>
-
 
               <div class="mb-3">
                 <label class="form-label">Status Pengiriman</label>
