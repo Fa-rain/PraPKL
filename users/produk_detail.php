@@ -84,19 +84,19 @@
             <div class="col-lg-5 mb-3 ">
                 <img src="../image/<?php echo $produk['foto']; ?>" class="w-100"  alt="sepatu">
 
-            <!-- Spesifikasi dalam Dropdown -->
-            <div class="mt-4 ">
-                <p>
-                    <a class="btn btn-light border-dark form-control" onclick="toggleCollapse()" role="button">
-                        Lihat Detail <i class="fa-solid fa-angle-down" id="icon-toggle"></i>
-                    </a>
-                </p>
-                <div class="collapse" id="collapseSpesifikasi">
-                    <div class="card card-body text-justify">
-                        <?php echo nl2br(htmlspecialchars($produk['detail'])); ?>
+                <!-- Spesifikasi dalam Dropdown -->
+                <div class="mt-4 ">
+                    <p>
+                        <a class="btn btn-light border-dark form-control" onclick="toggleCollapse()" role="button">
+                            Lihat Detail <i class="fa-solid fa-angle-down" id="icon-toggle"></i>
+                        </a>
+                    </p>
+                    <div class="collapse" id="collapseSpesifikasi">
+                        <div class="card card-body text-justify">
+                            <?php echo nl2br(htmlspecialchars($produk['detail'])); ?>
+                        </div>
                     </div>
                 </div>
-            </div>
 
             </div>
 
@@ -110,15 +110,13 @@
 
                 <p class="fs-4">Pilih Ukuran</p>
                 
-                <select name="ukuran_sepatu" id="ukuran"  class="btn btn-light dropdown-toggle border-dark rounded" required>
+
+                <select name="ukuran_sepatu" id="ukuran" class="btn btn-light dropdown-toggle border-dark rounded" required>
                     <option value="" disabled selected>Pilih Ukuran</option>
                     <?php
-                    while ($row = mysqli_fetch_array($result)) {
-                        $enum_values = explode("','", substr($row['Type'], 6, -2));
-                        foreach ($enum_values as $value) {
-                            if ($value === '36-42') continue;
-                            echo "<option value=\"{$value}\">{$value}</option>";
-                        }
+                    $ukuran_tersedia = explode(',', $produk['ukuran']); 
+                    foreach ($ukuran_tersedia as $uk) {
+                        echo "<option value='$uk'>$uk</option>";
                     }
                     ?>
                 </select>
@@ -134,7 +132,7 @@
                 </div>
 
 
-
+                <?php if ($produk['ketersediaan_stok'] === 'tersedia') : ?>
                 <!-- Form Masukkan Keranjang -->
                 <form action="keranjang.php" method="post" id="formKeranjang">
                     <input type="hidden" name="id_produk" value="<?php echo $produk['id_produk']; ?>">
@@ -154,6 +152,11 @@
                     <input type="hidden" name="redirect_url" value="<?= $_SERVER['REQUEST_URI'] ?>"> <!-- URL halaman saat ini, digunakan untuk redirect setelah login -->
                     <button type="submit" class="btn btn-light form-control mt-1">Beli Sekarang</button> <!-- Tombol untuk mengirim form -->
                 </form>
+                <?php else : ?>
+                <div class="alert alert-danger mt-4 text-center">Stok produk ini sedang habis.</div>
+                <button class="form-control btn btn-secondary mt-2" disabled>Masukkan Keranjang</button>
+                <button class="form-control btn btn-secondary mt-2" disabled>Beli Sekarang</button>
+                <?php endif; ?>
 
             </div>
 
