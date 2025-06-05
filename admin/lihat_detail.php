@@ -136,7 +136,7 @@ if (isset($_POST['kirim'])) {
             <!-- Kolom kiri: gambar -->
             <div class="col-md-6">
               <div class="mb-5">
-                <label class="form-label">Foto Produk :p</label><br>
+                <label class="form-label">Foto Produk :</label><br>
                 <img src="../image/<?= $data['foto'] ?>" class="img-fluid rounded" >
               </div>
 
@@ -179,7 +179,7 @@ if (isset($_POST['kirim'])) {
 
             <div class="mb-3">
               <label class="form-label">No. HP/Whatsapp</label>
-              <b><?= $data['no_tlpn'] ?></b>
+              <b>0<?= $data['no_tlpn'] ?></b>
             </div>
 
             <div class="mb-3">
