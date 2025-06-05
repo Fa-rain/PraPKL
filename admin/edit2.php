@@ -28,6 +28,7 @@
     <title>Edit Produk</title>
     <link rel="stylesheet" href="../bootstrap/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../fontawesome/fontawesome/css/fontawesome.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
 </head>
 
@@ -96,19 +97,17 @@
 
                     <div>
                         <label for="ukuran">Ukuran</label>
-                        <select name="ukuran" id="ukuran" class="form-control">
-                        <?php
-                        $ukuran = array("36-42","36", "37", "38", "39", "40", "41", "42");
-                        foreach ($ukuran as $value) {
-                        if ($data['ukuran'] == $value) {
-                            echo "<option value='$value' selected>$value</option>";
-                        } else {
-                            echo "<option value='$value'>$value</option>";
-                        }
-                        }
-                        ?>
-                    </select>
+                        <select name="ukuran[]" id="ukuran" class="form-control" multiple="multiple" required>
+                            <?php
+                            $daftar_ukuran = array("36", "37", "38", "39", "40", "41", "42");
+                            $ukuran_terpilih = isset($data['ukuran']) ? explode(',', $data['ukuran']) : [];
 
+                            foreach ($daftar_ukuran as $ukuran) {
+                                $selected = in_array($ukuran, $ukuran_terpilih) ? 'selected' : '';
+                                echo "<option value='$ukuran' $selected>$ukuran</option>";
+                            }
+                            ?>
+                        </select>
                     </div>
 
                     <div>
@@ -140,10 +139,9 @@
         <?php
             if(isset($_POST['editproduk'])){
                 $nama = htmlspecialchars($_POST['nama']);
-                $kategori = htmlspecialchars($_POST['kategori']);
                 $harga = htmlspecialchars($_POST['harga']);
                 $detail = htmlspecialchars($_POST['detail']);
-                $ukuran = htmlspecialchars($_POST['ukuran']);
+                $ukuran = htmlspecialchars(implode(',', $_POST['ukuran']));
                 $ketersediaan_stok = htmlspecialchars($_POST['ketersediaan_stok']);
 
                 $target_dir = "../image/";
@@ -155,14 +153,14 @@
                 $baru = $random_name . "." . $imageFileType;
 
 
-                if($nama=='' || $kategori=='' || $harga==''){
+                if($nama=='' || $harga==''){
                     ?>
                     <div class="alert alert-warning mt-3" role="alert">
                         Nama, Kategori, Harga wajib diisi
                     </div>
                     <?php
                 }else{
-                    $queryUpdate = mysqli_query($koneksi, "UPDATE produk SET id_kategori='$kategori', nama='$nama',
+                    $queryUpdate = mysqli_query($koneksi, "UPDATE produk SET nama='$nama',
                     harga='$harga', detail='$detail', ukuran='$ukuran', ketersediaan_stok='$ketersediaan_stok' WHERE id_produk=$id_produk");
 
                     if($queryUpdate){
@@ -176,7 +174,7 @@
                     }
 
                     if($nama_file!=''){
-                        if($image_size > 500000000){
+                        if($image_size > 5000000000000){
                             ?>
                             <div class="alert alert-warning mt-3" role="alert">
                                 Foto tidak boleh lebih dari 500000 kb
@@ -217,6 +215,18 @@
 
 
     <script src="../bootstrap/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#ukuran').select2({
+                placeholder: "Pilih ukuran",
+                allowClear: true
+            });
+        });
+    </script>
+
 
 </body>
 </html>
