@@ -23,7 +23,7 @@ $nama = $_GET['nama'] ?? '';
 
 
 
-
+ 
 <!DOCTYPE html>
 <html>
 <head>
@@ -100,21 +100,21 @@ $nama = $_GET['nama'] ?? '';
                 <div id="rekening-bca" class="rekening-info">
                     <ul>
                         <li>Bank: BCA</li>
-                        <li>No Rekening: 1234567890</li>
+                        <li>No Rekening: 1946840840978393</li>
                         <li>Atas Nama: PT Toko Sepatu</li>
                     </ul>
                 </div>
                 <div id="rekening-bni" class="rekening-info">
                     <ul>
                         <li>Bank: BNI</li>
-                        <li>No Rekening: 0987654321</li>
+                        <li>No Rekening: 8408409783931946</li>
                         <li>Atas Nama: PT Toko Sepatu</li>
                     </ul>
                 </div>
                 <div id="rekening-mandiri" class="rekening-info">
                     <ul>
                         <li>Bank: Mandiri</li>
-                        <li>No Rekening: 1122334455</li>
+                        <li>No Rekening: 4097839319468408</li>
                         <li>Atas Nama: PT Toko Sepatu</li>
                     </ul>
                 </div>
