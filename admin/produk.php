@@ -30,6 +30,7 @@
     <link rel="stylesheet" href="../bootstrap/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../fontawesome/fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/44.3.0/ckeditor5.css" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
 </head>
 <style>
@@ -91,16 +92,14 @@
 
                         <div>
                             <label for="ukuran">Ukuran</label>
-                            <select name="ukuran" id="ukuran" class="form-control">
-                                <option value="">-- Pilih Ukuran --</option>
+                            <select name="ukuran[]" id="ukuran" class="form-control" multiple="multiple" required>
                                 <?php
-                                $ukuran = array("36-42");
-                                foreach ($ukuran as $value) {
-                                    if (!empty($data['ukuran']) && $data['ukuran'] == $value) {
-                                        echo "<option value='$value' selected>$value</option>";
-                                    } else {
-                                        echo "<option value='$value'>$value</option>";
-                                    }
+                                $daftar_ukuran = array("36", "37", "38", "39", "40", "41", "42");
+                                $ukuran_terpilih = isset($data['ukuran']) ? explode(',', $data['ukuran']) : [];
+
+                                foreach ($daftar_ukuran as $ukuran) {
+                                    $selected = in_array($ukuran, $ukuran_terpilih) ? 'selected' : '';
+                                    echo "<option value='$ukuran' $selected>$ukuran</option>";
                                 }
                                 ?>
                             </select>
@@ -113,13 +112,13 @@
                             <textarea name="detail" id="detail" cols="30" rows="10" class="form-control"></textarea>
                         </div>
 
-                        <div>
-                            <label for="ketersediaan_stok">Ketersediaan Stok</label>
-                            <select name="ketersediaan_stok" id="ketersediaan_stok" class="form-control">
-                                <option value="tersedia">Tersedia</option>
-                                <option value="habis">Habis</option>
-                            </select>
-                        </div>
+                    <div>
+                        <label for="ketersediaan_stok">Ketersediaan Stok</label>
+                        <select name="ketersediaan_stok" id="ketersediaan_stok" class="form-control">
+                            <option value="tersedia" <?= ($data == 'tersedia') ? 'selected' : '' ?>>Tersedia</option>
+                            <option value="habis" <?= ($data == 'habis') ? 'selected' : '' ?>>Habis</option>
+                        </select>
+                    </div>
                     </div>
                 </div>
 
@@ -136,7 +135,7 @@
                     $kategori = htmlspecialchars($_POST['kategori']);
                     $harga = htmlspecialchars($_POST['harga']);
                     $detail = htmlspecialchars($_POST['detail']);
-                    $ukuran = htmlspecialchars($_POST['ukuran']);
+                    $ukuran = htmlspecialchars(implode(',', $_POST['ukuran']));
                     $ketersediaan_stok = htmlspecialchars($_POST['ketersediaan_stok']);
         
         
@@ -157,7 +156,7 @@
                         <?php
                     }else{
                         if($nama_file!=''){
-                            if($image_size > 500000000){
+                            if($image_size > 5000000000000){
                                 ?>
                                 <div class="alert alert-warning mt-3" role="alert">
                                     Foto tidak boleh lebih dari 100000 kb
@@ -258,6 +257,17 @@
     
     <script src="../bootstrap/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../fontawesome/fontawesome/js/all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#ukuran').select2({
+                placeholder: "Pilih ukuran",
+                allowClear: true
+            });
+        });
+    </script>
 
     <script src="https://cdn.ckeditor.com/ckeditor5/44.3.0/classic/ckeditor.js"></script>
 
