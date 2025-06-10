@@ -1,12 +1,22 @@
 <?php
-    require "session.php";
-    require "koneksi.php";
 
-    $queryproduk = mysqli_query($koneksi, "SELECT a.*, b.nama AS nama_kategori FROM produk a JOIN kategori b ON a.id_kategori=b.id_kategori");
-    $jumlahproduk = mysqli_num_rows($queryproduk);
-    
-    $querykategori = mysqli_query($koneksi, "SELECT * FROM kategori");
+require "session.php";
+require "koneksi.php";
 
+$sql = "SELECT a.*, b.nama AS nama_kategori FROM produk a JOIN kategori b ON a.id_kategori = b.id_kategori";
+
+if (isset($_GET['kategori']) && $_GET['kategori'] !== "") {
+    $kat = mysqli_real_escape_string($koneksi, $_GET['kategori']);
+    $sql .= " WHERE a.id_kategori = '$kat'";
+}
+
+$sql .= " ORDER BY a.id_produk DESC";
+
+$queryproduk   = mysqli_query($koneksi, $sql);
+$jumlahproduk  = mysqli_num_rows($queryproduk);
+
+
+$querykategori = mysqli_query($koneksi, "SELECT * FROM kategori");
 
 
     function generateRandomString($length = 10){
@@ -19,7 +29,7 @@
         return $randomString;
     }
     
-?>
+?> 
 
 <!DOCTYPE html>
 <html lang="en">
@@ -200,10 +210,25 @@
 
 
         <div class="mt-3 mb-5">
-            <h2>List Produk</h2>
+            <div class="d-flex justify-content-between align-items-center mt-3">
+                <h2>List Produk</h2>
+                <form method="GET" action="" class="d-flex">
+                    <select name="kategori" class="form-select me-2">
+                        <option value="">-- Semua Kategori --</option>
+                        <?php
+                            $query_kategori = mysqli_query($koneksi, "SELECT * FROM kategori");
+                            while ($kategori = mysqli_fetch_array($query_kategori)) {
+                                $selected = (isset($_GET['kategori']) && $_GET['kategori'] == $kategori['id_kategori']) ? 'selected' : '';
+                                echo "<option value='".$kategori['id_kategori']."' $selected>".$kategori['nama']."</option>";
+                            }
+                        ?>
+                    </select>
+                    <button type="submit" class="btn btn-primary">Cari</button>
+                </form>
+            </div>
 
             <div class="table-responsive mt-4">
-                <table class="table table-bordered text-center">
+                <table class="table table-bordered table-hover align-middle text-center">
                         <thead>
                             <tr>
                                 <th>Id</th>
